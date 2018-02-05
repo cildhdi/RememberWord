@@ -1,0 +1,9 @@
+
+*.obj
+Debug/RememberWord.exe
+Debug/RememberWord.ilk
+Debug/RememberWord.pdb
+RememberWord/Debug/RememberWord.log
+*.tlog
+RememberWord/Debug/vc141.idb
+RememberWord/Debug/vc141.pdb
