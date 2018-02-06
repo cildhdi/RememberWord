@@ -3,18 +3,30 @@
 #define _WORD_H_
 #include <string>
 #include <map>
+#include <windows.h>
+#include "TinyXML2/tinyxml2.h"
+#include "tools.h"
+
+#pragma warning(disable:4066)
 class Word
 {
 private:
+	bool bExsited;
 	std::wstring m_Key;//单词
 	std::map<std::wstring, std::wstring> m_Acceptations;//<词性,意义>
+	std::map<std::wstring, std::wstring> m_Sentences;//<英文，中文>
 public:
 	Word(std::wstring key);
+	Word(tinyxml2::XMLDocument* xmlDoc);
 	std::wstring GetWord();
 	void SetWord(std::wstring strWord);
 	void AddAcceptation(std::wstring pos, std::wstring acception);
-	bool RemoveAcceptation(std::wstring pos);
-	void ClearAcceptation();
-	std::wstring GetDetail();//返回单词和意义
+	void ClearAcceptations();
+	void AddSentence(std::wstring orig, std::wstring trans);
+	void ClearSentences();
+	std::wstring GetDetail();//返回单词和意义和例句
 };
+
+
+
 #endif

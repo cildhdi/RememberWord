@@ -1,8 +1,39 @@
 #include "Word.h"
 
+
+
 Word::Word(std::wstring key)
 {
 	m_Key = key;
+}
+
+Word::Word(tinyxml2::XMLDocument* xmlDoc)
+{
+	bExsited = true;
+	tinyxml2::XMLElement* elmtRoot = xmlDoc->RootElement();
+	tinyxml2::XMLElement* elmtKey = elmtRoot->FirstChildElement("key");
+	m_Key = StringToWideString(elmtKey->GetText());
+
+	tinyxml2::XMLElement* elmtPos = elmtRoot->FirstChildElement("pos");
+	tinyxml2::XMLElement* elmtAcceptation = elmtRoot->FirstChildElement("acceptation");
+	if (elmtPos == nullptr || elmtAcceptation == nullptr) bExsited = false;
+	while ((elmtPos != nullptr) && (elmtAcceptation != nullptr))
+	{
+		AddAcceptation(StringToWideString(elmtPos->GetText()), StringToWideString(elmtAcceptation->GetText()));
+		elmtPos = elmtPos->NextSiblingElement("pos");
+		elmtAcceptation = elmtAcceptation->NextSiblingElement("acceptation");
+	}
+
+	tinyxml2::XMLElement* elmtStc = elmtRoot->FirstChildElement("sent");
+	tinyxml2::XMLElement* elmtOrig = nullptr;
+	tinyxml2::XMLElement* elmtTrans = nullptr;
+	while (elmtStc != nullptr)
+	{
+		elmtOrig = elmtStc->FirstChildElement("orig");
+		elmtTrans = elmtStc->FirstChildElement("trans");
+		AddSentence(StringToWideString(elmtOrig->GetText()), StringToWideString(elmtTrans->GetText()));
+		elmtStc = elmtStc->NextSiblingElement("sent");
+	}
 }
 
 void Word::SetWord(std::wstring strWord)
@@ -10,10 +41,7 @@ void Word::SetWord(std::wstring strWord)
 	m_Key = strWord;
 }
 
-std::wstring Word::GetWord()
-{
-	return m_Key;
-}
+
 
 void Word::AddAcceptation(std::wstring pos, std::wstring acception)
 {
@@ -21,22 +49,40 @@ void Word::AddAcceptation(std::wstring pos, std::wstring acception)
 }
 
 
-bool Word::RemoveAcceptation(std::wstring pos)
-{
-	return 0 != m_Acceptations.erase(pos);
-}
-
-void Word::ClearAcceptation()
+void Word::ClearAcceptations()
 {
 	m_Acceptations.clear();
 }
 
+void Word::AddSentence(std::wstring orig, std::wstring trans)
+{
+	m_Sentences.insert(std::pair<std::wstring, std::wstring>(orig, trans));
+}
+
+void Word::ClearSentences()
+{
+	m_Sentences.clear();
+}
+
+std::wstring Word::GetWord()
+{
+	return m_Key;
+}
+
 std::wstring Word::GetDetail()
 {
+	if (!bExsited) return L"未查询到单词，请检查是否有拼写错误。";
 	std::wstring acceptations;
 	for (auto acp : m_Acceptations)
 	{
-		acceptations += (acp.first + L"  " + acp.second + L"\n");
+		acceptations += (L"   " + acp.first + L"   " + acp.second/* + L"\n"*/);
 	}
-	return m_Key + L"\n" + acceptations;
+	std::wstring sentences;
+	int i = 1;
+	for (auto stc : m_Sentences)
+	{
+		sentences += (L"  " + std::to_wstring(i) + L". " + stc.first.substr(1, stc.first.size() - 1) + L"     " + stc.second.substr(1, stc.second.size() - 1)/* + L"\n"*/);
+		i++;
+	}
+	return  L"单词：" + m_Key + L"\n意义：\n" + acceptations + std::wstring(L"例句：\n") + sentences;
 }

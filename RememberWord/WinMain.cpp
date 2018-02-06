@@ -1,6 +1,7 @@
 #include <windows.h>
 #include "KrUI/KrCore.h"
 #include "MainWindow.h"
+
 using namespace KrUI;
 KrUI::KrUIManager* pUi = KrUIManager::GetpKrUIManager();
 
