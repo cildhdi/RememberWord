@@ -5,13 +5,14 @@ MainWindow::MainWindow()
 {
 	pEdit = nullptr;
 	pLbl = nullptr;
+	pBtn = nullptr;
 	RegMsg(KM_CREATE, reinterpret_cast<MSGPROC>(Wnd_Create));
 }
 
 void MainWindow::Btn_Click(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
 {
 	MainWindow* pWnd = dynamic_cast<MainWindow*> (dynamic_cast<KrButton*>(kmh)->GetParantWindow());
-	if (pWnd->pEdit == nullptr || pWnd->pLbl == nullptr)return;
+	if (pWnd->pEdit == nullptr || pWnd->pLbl == nullptr || pWnd->pEdit->GetText().size() == 0)return;
 	Word* pW = new Word(pWnd->pEdit->GetText());
 	GetEntry(pW);
 	pWnd->pLbl->SetName(pW->GetDetail());
@@ -30,8 +31,14 @@ void MainWindow::Btn_Click(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
 void MainWindow::Wnd_Create(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
 {
 	dynamic_cast<MainWindow*>(kmh)->pEdit = dynamic_cast<KrEdit*>(dynamic_cast<MainWindow*>(kmh)->AddControl(KrEdit_t, L"", 50, 70, 400, 35));
-	KrButton* pBtn = dynamic_cast<KrButton*>(dynamic_cast<MainWindow*>(kmh)->AddControl(KrButton_t, L"≤È—Ø", 500, 70, 100, 35));
-	pBtn->RegMsg(KM_CLICK, reinterpret_cast<MSGPROC>(Btn_Click));
+	dynamic_cast<MainWindow*>(kmh)->pBtn = dynamic_cast<KrButton*>(dynamic_cast<MainWindow*>(kmh)->AddControl(KrButton_t, L"≤È—Ø", 500, 70, 100, 35));
+	dynamic_cast<MainWindow*>(kmh)->pBtn->RegMsg(KM_CLICK, reinterpret_cast<MSGPROC>(Btn_Click));
+	dynamic_cast<MainWindow*>(kmh)->RegMsg(WM_KEYDOWN, reinterpret_cast<MSGPROC>(Btn_KeyDown));
 	dynamic_cast<MainWindow*>(kmh)->pLbl = dynamic_cast<KrLabel*>(dynamic_cast<MainWindow*>(kmh)->AddControl(KrLabel_t, L"", 50, 120, 600, 600));
 	dynamic_cast<MainWindow*>(kmh)->pLbl->SetLineAlignment(Gdiplus::StringAlignmentNear);
+}
+
+void MainWindow::Btn_KeyDown(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
+{
+	if (wp == VK_RETURN) dynamic_cast<MainWindow*> (kmh)->pBtn->CallMsgProc(KM_CLICK, wp, lp);
 }

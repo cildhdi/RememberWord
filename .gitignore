@@ -40,3 +40,8 @@ RememberWord/Debug/RememberWord.Build.CppClean.log
 *.pdb
 RememberWord/ClassDiagram.cd
 Debug/libcurl.dll
+Release/Release.7z
+RememberWord/Release/RememberWord.log
+RememberWord/Release/RememberWord.log
+*.log
+RememberWord/Release/RememberWord.log
