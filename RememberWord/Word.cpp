@@ -9,6 +9,11 @@ Word::Word(std::wstring key)
 
 Word::Word(tinyxml2::XMLDocument* xmlDoc)
 {
+	FromXMLDoc(xmlDoc);
+}
+
+void Word::FromXMLDoc(tinyxml2::XMLDocument* xmlDoc)
+{
 	bExsited = true;
 	tinyxml2::XMLElement* elmtRoot = xmlDoc->RootElement();
 	tinyxml2::XMLElement* elmtKey = elmtRoot->FirstChildElement("key");

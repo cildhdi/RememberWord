@@ -60,6 +60,9 @@
     <ClCompile Include="Word.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="KrUI\Tools\KrTools.cpp">
+      <Filter>KrUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainWindow.h">
@@ -98,5 +101,11 @@
     <ClInclude Include="Word.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="KrUI\Tools\KrTools.h">
+      <Filter>KrUI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

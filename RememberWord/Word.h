@@ -19,6 +19,7 @@ public:
 	Word(std::wstring key);
 	Word(tinyxml2::XMLDocument* xmlDoc);
 	std::wstring GetWord();
+	void FromXMLDoc(tinyxml2::XMLDocument* xmlDoc);
 	void SetWord(std::wstring strWord);
 	void AddAcceptation(std::wstring pos, std::wstring acception);
 	void ClearAcceptations();

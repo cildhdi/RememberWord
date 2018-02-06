@@ -31,3 +31,12 @@ RememberWord/Debug/RememberWord.Build.CppClean.log
 .vs/RememberWord/v15/Browse.VC.opendb
 .vs/RememberWord/v15/ipch/AutoPCH/b8f3c11bccbf9ac3/WORD.ipch
 .vs/RememberWord/v15/ipch/AutoPCH/bd14bb9d352a1151/TINYXML2.ipch
+.vs/RememberWord/v15/ipch/AutoPCH/2c379980b363ec6b/KRBUTTON.ipch
+.vs/RememberWord/v15/ipch/AutoPCH/53aba1b117d49cc4/KRUIBASE.ipch
+.vs/RememberWord/v15/ipch/AutoPCH/5c164c424e7bce2e/TOOLS.ipch
+*.ipch
+*.iobj
+*.ipdb
+*.pdb
+RememberWord/ClassDiagram.cd
+Debug/libcurl.dll
