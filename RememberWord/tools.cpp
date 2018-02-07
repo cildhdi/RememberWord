@@ -98,7 +98,9 @@ void GetEntry(void* pParam)
 	curl_get_req("http://dict-co.iciba.com/api/dictionary.php?w=" + WideStringToString(pWord->GetWord()) + "&key=84246457202BD56AE2EDBF8CDBAB66B1", strrep);
 
 	std::wstring str;
+
 	UTF8StringToWCharString(strrep, str);
+	
 	unsigned int xmlstart = 0;
 	for (unsigned int i = 0; i < str.size(); i++)
 	{
@@ -113,6 +115,18 @@ void GetEntry(void* pParam)
 	str = str.substr(xmlstart, str.size() - xmlstart);
 	strXml = WideStringToString(str);
 	tinyxml2::XMLError errXml = docXml.Parse(strXml.c_str());
+
+//  	tinyxml2::XMLDocument docXml;
+// 	unsigned int xmlstart = 0;
+// 	for (unsigned int i = 0; i < strrep.size(); i++)
+// 	{
+// 		if (strrep[i] == '?')
+// 		{
+// 			xmlstart = i - 1;
+// 			break;
+// 		}
+// 	}
+// 	tinyxml2::XMLError errXml = docXml.Parse(strrep.substr(xmlstart, strrep.size() - xmlstart).c_str());
 	if (errXml == tinyxml2::XML_SUCCESS)
 	{
 		pWord->FromXMLDoc(&docXml);

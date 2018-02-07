@@ -47,3 +47,6 @@ RememberWord/Release/RememberWord.log
 RememberWord/Release/RememberWord.log
 RememberWord/Release/RememberWord.log
 RememberWord/Release/RememberWord.log
+*.log
+RememberWord/x64/Debug/vc141.idb
+RememberWord/Release/RememberWord.log
