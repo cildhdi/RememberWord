@@ -5,7 +5,8 @@
 #include <map>
 #include <windows.h>
 #include "TinyXML2/tinyxml2.h"
-#include "tools.h"
+#include "KrUI/Tools/KrTools.h"
+using namespace KrUI;
 
 #pragma warning(disable:4066)
 class Word
@@ -25,6 +26,7 @@ public:
 	void ClearAcceptations();
 	void AddSentence(std::wstring orig, std::wstring trans);
 	void ClearSentences();
+	void Clear();
 	std::wstring GetDetail();//返回单词和意义和例句
 };
 

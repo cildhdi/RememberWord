@@ -124,9 +124,8 @@
     <ClCompile Include="KrUI\KrUIManager.cpp" />
     <ClCompile Include="KrUI\KrWindow.cpp" />
     <ClCompile Include="KrUI\Tools\KrTools.cpp" />
-    <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="TinyXML2\tinyxml2.cpp" />
-    <ClCompile Include="tools.cpp" />
+    <ClCompile Include="GetEntry.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="Word.cpp" />
   </ItemGroup>
@@ -140,9 +139,8 @@
     <ClInclude Include="KrUI\KrProgressBar.h" />
     <ClInclude Include="KrUI\KrUIBase.h" />
     <ClInclude Include="KrUI\Tools\KrTools.h" />
-    <ClInclude Include="MainWindow.h" />
     <ClInclude Include="TinyXML2\tinyxml2.h" />
-    <ClInclude Include="tools.h" />
+    <ClInclude Include="GetEntry.h" />
     <ClInclude Include="Word.h" />
   </ItemGroup>
   <ItemGroup>

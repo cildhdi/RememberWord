@@ -1,7 +1,5 @@
 #include "Word.h"
 
-
-
 Word::Word(std::wstring key)
 {
 	m_Key = key;
@@ -76,7 +74,7 @@ std::wstring Word::GetWord()
 
 std::wstring Word::GetDetail()
 {
-	if (!bExsited) return L"未查询到单词，请检查是否有拼写错误。";
+	if (!bExsited) return L"未查询到单词，请检查网络连接和是否有拼写错误。";
 	std::wstring acceptations;
 	for (auto acp : m_Acceptations)
 	{
@@ -90,4 +88,11 @@ std::wstring Word::GetDetail()
 		i++;
 	}
 	return  L"单词：" + m_Key + L"\n意义：\n" + acceptations + std::wstring(L"例句：\n") + sentences;
+}
+
+void Word::Clear()
+{
+	m_Key.clear();
+	m_Acceptations.clear();
+	m_Sentences.clear();
 }

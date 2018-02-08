@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MainWindow.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="WinMain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -54,20 +51,17 @@
     <ClCompile Include="TinyXML2\tinyxml2.cpp">
       <Filter>TinyXML2</Filter>
     </ClCompile>
-    <ClCompile Include="tools.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Word.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="KrUI\Tools\KrTools.cpp">
       <Filter>KrUI</Filter>
     </ClCompile>
+    <ClCompile Include="GetEntry.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainWindow.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="KrUI\KrButton.h">
       <Filter>KrUI</Filter>
     </ClInclude>
@@ -95,14 +89,14 @@
     <ClInclude Include="TinyXML2\tinyxml2.h">
       <Filter>TinyXML2</Filter>
     </ClInclude>
-    <ClInclude Include="tools.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Word.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="KrUI\Tools\KrTools.h">
       <Filter>KrUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GetEntry.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

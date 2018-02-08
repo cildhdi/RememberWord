@@ -1,7 +1,15 @@
 ﻿  KrButton.cpp
+  KrEdit.cpp
+  KrUIBase.cpp
+  KrUIManager.cpp
+  KrWindow.cpp
+  KrTools.cpp
+  GetEntry.cpp
+  WinMain.cpp
+  Word.cpp
   正在生成代码
-  1 of 1149 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  25 of 1156 functions ( 2.2%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   RememberWord.vcxproj -> D:\Users\Miles\source\repos\RememberWord\Release\RememberWord.exe
