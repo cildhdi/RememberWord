@@ -59,3 +59,5 @@ Release/RememberWord/.rsrc/MANIFEST/1
 Release/RememberWord/.text
 RememberWord/KrUI/Tools/KrTools.cpp
 RememberWord/KrUI/Tools/KrTools.h
+RememberWord/KrUI/KrList.cpp
+RememberWord/KrUI/KrList.h

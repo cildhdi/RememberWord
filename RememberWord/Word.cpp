@@ -3,6 +3,7 @@
 Word::Word(std::wstring key)
 {
 	m_Key = key;
+	m_bFound = false;
 }
 
 Word::Word(tinyxml2::XMLDocument* xmlDoc)
@@ -12,14 +13,14 @@ Word::Word(tinyxml2::XMLDocument* xmlDoc)
 
 void Word::FromXMLDoc(tinyxml2::XMLDocument* xmlDoc)
 {
-	bExsited = true;
+	m_bFound = true;
 	tinyxml2::XMLElement* elmtRoot = xmlDoc->RootElement();
 	tinyxml2::XMLElement* elmtKey = elmtRoot->FirstChildElement("key");
-	m_Key = StringToWideString(elmtKey->GetText());
+	//m_Key = StringToWideString(elmtKey->GetText());
 
 	tinyxml2::XMLElement* elmtPos = elmtRoot->FirstChildElement("pos");
 	tinyxml2::XMLElement* elmtAcceptation = elmtRoot->FirstChildElement("acceptation");
-	if (elmtPos == nullptr || elmtAcceptation == nullptr) bExsited = false;
+	if (elmtPos == nullptr || elmtAcceptation == nullptr) m_bFound = false;
 	while ((elmtPos != nullptr) && (elmtAcceptation != nullptr))
 	{
 		AddAcceptation(StringToWideString(elmtPos->GetText()), StringToWideString(elmtAcceptation->GetText()));
@@ -74,7 +75,7 @@ std::wstring Word::GetWord()
 
 std::wstring Word::GetDetail()
 {
-	if (!bExsited) return L"未查询到单词，请检查网络连接和是否有拼写错误。";
+	if (!m_bFound) return L"未查询到单词，请检查网络连接和是否有拼写错误。";
 	std::wstring acceptations;
 	for (auto acp : m_Acceptations)
 	{
@@ -95,4 +96,9 @@ void Word::Clear()
 	m_Key.clear();
 	m_Acceptations.clear();
 	m_Sentences.clear();
+}
+
+bool Word::IsFound()
+{
+	return m_bFound;
 }

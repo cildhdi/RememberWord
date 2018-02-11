@@ -12,7 +12,7 @@ using namespace KrUI;
 class Word
 {
 private:
-	bool bExsited;
+	bool m_bFound;
 	std::wstring m_Key;//单词
 	std::map<std::wstring, std::wstring> m_Acceptations;//<词性,意义>
 	std::map<std::wstring, std::wstring> m_Sentences;//<英文，中文>
@@ -27,6 +27,7 @@ public:
 	void AddSentence(std::wstring orig, std::wstring trans);
 	void ClearSentences();
 	void Clear();
+	bool IsFound();
 	std::wstring GetDetail();//返回单词和意义和例句
 };
 

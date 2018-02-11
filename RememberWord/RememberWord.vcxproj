@@ -118,6 +118,7 @@
     <ClCompile Include="KrUI\KrButton.cpp" />
     <ClCompile Include="KrUI\KrEdit.cpp" />
     <ClCompile Include="KrUI\KrLabel.cpp" />
+    <ClCompile Include="KrUI\KrList.cpp" />
     <ClCompile Include="KrUI\KrMessageHandler.cpp" />
     <ClCompile Include="KrUI\KrProgressBar.cpp" />
     <ClCompile Include="KrUI\KrUIBase.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="KrUI\KrDefine.h" />
     <ClInclude Include="KrUI\KrEdit.h" />
     <ClInclude Include="KrUI\KrLabel.h" />
+    <ClInclude Include="KrUI\KrList.h" />
     <ClInclude Include="KrUI\KrMessageHandler.h" />
     <ClInclude Include="KrUI\KrProgressBar.h" />
     <ClInclude Include="KrUI\KrUIBase.h" />
