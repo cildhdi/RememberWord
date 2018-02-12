@@ -8,7 +8,7 @@ using namespace KrUI;
 #define CURL_STATICLIB
 #include "curl/curl.h"
 #pragma comment(lib,"curl/libcurl.lib")
-
+#include "TinyXML2/tinyxml2.h"
 
 void GetEntry(void* pParam);
 

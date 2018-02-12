@@ -8,7 +8,25 @@ Word::Word(std::wstring key)
 
 Word::Word(tinyxml2::XMLDocument* xmlDoc)
 {
+	using namespace tinyxml2;
+	XMLElement* pEle = xmlDoc->NewElement("dict");
 	FromXMLDoc(xmlDoc);
+}
+
+void Word::FromXMLStr(std::string str)
+{
+	tinyxml2::XMLDocument docXml;
+	tinyxml2::XMLError errXml = docXml.Parse(str.c_str());
+	if (errXml == tinyxml2::XML_SUCCESS)
+	{
+		FromXMLDoc(&docXml);
+		m_Xml = str;
+	}
+}
+
+std::string Word::GetXml()
+{
+	return m_Xml;
 }
 
 void Word::FromXMLDoc(tinyxml2::XMLDocument* xmlDoc)
@@ -16,11 +34,15 @@ void Word::FromXMLDoc(tinyxml2::XMLDocument* xmlDoc)
 	m_bFound = true;
 	tinyxml2::XMLElement* elmtRoot = xmlDoc->RootElement();
 	tinyxml2::XMLElement* elmtKey = elmtRoot->FirstChildElement("key");
-	//m_Key = StringToWideString(elmtKey->GetText());
+	m_Key = StringToWideString(elmtKey->GetText());
 
 	tinyxml2::XMLElement* elmtPos = elmtRoot->FirstChildElement("pos");
 	tinyxml2::XMLElement* elmtAcceptation = elmtRoot->FirstChildElement("acceptation");
-	if (elmtPos == nullptr || elmtAcceptation == nullptr) m_bFound = false;
+	if (elmtPos == nullptr || elmtAcceptation == nullptr)
+	{
+		m_bFound = false;
+		return;
+	}
 	while ((elmtPos != nullptr) && (elmtAcceptation != nullptr))
 	{
 		AddAcceptation(StringToWideString(elmtPos->GetText()), StringToWideString(elmtAcceptation->GetText()));
@@ -38,6 +60,12 @@ void Word::FromXMLDoc(tinyxml2::XMLDocument* xmlDoc)
 		AddSentence(StringToWideString(elmtOrig->GetText()), StringToWideString(elmtTrans->GetText()));
 		elmtStc = elmtStc->NextSiblingElement("sent");
 	}
+	//xmlDoc->DeepCopy(m_XmlDoc);
+}
+
+void Word::AddToXmlDoc(tinyxml2::XMLDocument* xmlDoc)
+{
+
 }
 
 void Word::SetWord(std::wstring strWord)

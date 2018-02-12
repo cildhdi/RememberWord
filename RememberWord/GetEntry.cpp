@@ -1,6 +1,5 @@
 #include "GetEntry.h"
 #include "Word.h"
-#include "TinyXML2/tinyxml2.h"
 
 
 size_t req_reply(void *ptr, size_t size, size_t nmemb, void *stream)
@@ -51,11 +50,12 @@ void GetEntry(void* pParam)
 			break;
 		}
 	}
-	tinyxml2::XMLDocument docXml;
+	tinyxml2::XMLDocument docXml=new tinyxml2::XMLDocument;
 	std::string strXml;
 	str = str.substr(xmlstart, str.size() - xmlstart);
 	strXml = WideStringToString(str);
-	tinyxml2::XMLError errXml = docXml.Parse(strXml.c_str());
-	if (errXml == tinyxml2::XML_SUCCESS) pWord->FromXMLDoc(&docXml);
+	pWord->FromXMLStr(strXml);
+// 	tinyxml2::XMLError errXml = docXml.Parse(strXml.c_str());
+// 	if (errXml == tinyxml2::XML_SUCCESS) pWord->FromXMLDoc(&docXml);
 	curl_global_cleanup();
 }

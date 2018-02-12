@@ -13,6 +13,7 @@ class Word
 {
 private:
 	bool m_bFound;
+	std::string m_Xml;
 	std::wstring m_Key;//单词
 	std::map<std::wstring, std::wstring> m_Acceptations;//<词性,意义>
 	std::map<std::wstring, std::wstring> m_Sentences;//<英文，中文>
@@ -21,6 +22,9 @@ public:
 	Word(tinyxml2::XMLDocument* xmlDoc);
 	std::wstring GetWord();
 	void FromXMLDoc(tinyxml2::XMLDocument* xmlDoc);
+	void FromXMLStr(std::string str);
+	void AddToXmlDoc(tinyxml2::XMLDocument* xmlDoc);
+	std::string GetXml();
 	void SetWord(std::wstring strWord);
 	void AddAcceptation(std::wstring pos, std::wstring acception);
 	void ClearAcceptations();
