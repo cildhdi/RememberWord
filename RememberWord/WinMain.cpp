@@ -33,9 +33,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	pBtn_Query->RegMsg(KM_CLICK, reinterpret_cast<MSGPROC>(Btn_Query_Click));
 	pBtn_Delete = pWnd->AddButton(L"É¾³ý", 870, 50, 100, 35);
 	pBtn_Delete->RegMsg(KM_CLICK, reinterpret_cast<MSGPROC>(Btn_Delete_Click));
-	pLbl = pWnd->AddLabel(L"", 360, 100, 600, 600);
+	pLbl = pWnd->AddLabel(L"", 260, 100, 700, 600);
 	pLbl->SetLineAlignment(Gdiplus::StringAlignmentNear);
-	pList = pWnd->AddList(L"WordList", 30, 100, 300, 500);
+	pList = pWnd->AddList(L"WordList", 30, 100, 200, 500);
 	pList->RegMsg(KM_SELECTEDITEMCHANGE, reinterpret_cast<MSGPROC>(List_Change));
 
 	char szPath[MAX_PATH];
