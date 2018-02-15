@@ -15,16 +15,16 @@ CURLcode curl_get_req(const std::string &url, std::string &response)
 	CURLcode res;
 	if (curl)
 	{
-		curl_easy_setopt(curl, CURLOPT_URL, url.c_str()); // url  
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false); // if want to use https  
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, false); // set peer and host verify false  
+		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, false);
 		curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
 		curl_easy_setopt(curl, CURLOPT_READFUNCTION, NULL);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, req_reply);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&response);
 		curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
 		curl_easy_setopt(curl, CURLOPT_HEADER, 1);
-		curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3); // set transport and time out time  
+		curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3);
 		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 3);
 		res = curl_easy_perform(curl);
 	}
@@ -55,7 +55,5 @@ void GetEntry(void* pParam)
 	str = str.substr(xmlstart, str.size() - xmlstart);
 	strXml = WideStringToString(str);
 	pWord->FromXMLStr(strXml);
-// 	tinyxml2::XMLError errXml = docXml.Parse(strXml.c_str());
-// 	if (errXml == tinyxml2::XML_SUCCESS) pWord->FromXMLDoc(&docXml);
 	curl_global_cleanup();
 }
