@@ -9,3 +9,4 @@
 using namespace KrUI;
 
 void InitEditWindow();
+void LoadXml(KrUI::KrList* pL);

@@ -2,15 +2,67 @@
 
 KrWindow* pWndEdit = nullptr;
 KrList* pWordList = nullptr;
+KrButton* pBtnSa = nullptr;
+KrButton* pBtnNsa = nullptr;
+KrButton* pBtnDel = nullptr;
 std::string path;
+char szPath[MAX_PATH];
 tinyxml2::XMLDocument xmlDoc;
 
+LRESULT SelectAll(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
+LRESULT SelectNo(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
+LRESULT DelItem(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
 void InitEditWindow()
 {
-	int width = 1000, height = 630, cx = GetSystemMetrics(SM_CXSCREEN), cy = GetSystemMetrics(SM_CYSCREEN);
-	pWndEdit = KrUIManager::GetpKrUIManager()->AddWindow(L"编辑本地词库", (cx - width) / 2, (cy - height) / 2, width, height);
-	pWordList = pWndEdit->AddList(L"", 30, 50, 200, 500);
-	char szPath[MAX_PATH];
+	int width = 500, height = 650, cx = GetSystemMetrics(SM_CXSCREEN), cy = GetSystemMetrics(SM_CYSCREEN);
+	pWndEdit = KrUIManager::GetpKrUIManager()->AddWindow(L"选中要删除的单词(删除后会重新启动应用以载入更新的文件)", (cx - width) / 2, (cy - height) / 2, width, height);
+	pWordList = pWndEdit->AddList(L"", 30, 70, 440, 500);
+	pWordList->SetMultiSelectable(true);
+	pBtnNsa = pWndEdit->AddButton(L"全不选", 130, 590);
+	pBtnNsa->RegMsg(KM_CLICK, SelectNo);
+	pBtnSa = pWndEdit->AddButton(L"全选", 250, 590);
+	pBtnSa->RegMsg(KM_CLICK, SelectAll);
+	pBtnDel = pWndEdit->AddButton(L"删除", 370, 590);
+	pBtnDel->RegMsg(KM_CLICK, DelItem);
+	LoadXml(pWordList);
+}
+
+LRESULT SelectAll(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
+{
+	pWordList->SelectAllItems(true);
+	return 0;
+}
+LRESULT SelectNo(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
+{
+	pWordList->SelectAllItems(false);
+	return 0;
+}
+
+LRESULT DelItem(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
+{
+	for (auto li : pWordList->GetSelectedItems())
+	{
+		tinyxml2::XMLElement* pEleWord = xmlDoc.FirstChildElement();
+		while (pEleWord != nullptr)
+		{
+			if (StringToWideString(pEleWord->Name()) == li.m_ItemName)
+			{
+				tinyxml2::XMLElement* pEleTemp = pEleWord;
+				pEleWord = pEleWord->NextSiblingElement();
+				xmlDoc.DeleteChild(pEleTemp);
+			}
+			if (pEleWord != nullptr)pEleWord = pEleWord->NextSiblingElement();
+		}
+		pWordList->RemoveItem(li.m_Index);
+	}
+	xmlDoc.SaveFile(path.c_str());
+	WinExec(szPath, SW_SHOW);
+	PostQuitMessage(0);
+	return 0;
+}
+
+void LoadXml(KrUI::KrList* pL)
+{
 	GetModuleFileNameA(NULL, szPath, MAX_PATH);
 	path = szPath;
 	path = path.substr(0, path.size() - 16) + "words.xml";
@@ -24,7 +76,7 @@ void InitEditWindow()
 		tinyxml2::XMLElement* pEleWord = xmlDoc.FirstChildElement();
 		while (pEleWord != nullptr)
 		{
-			pWordList->AddItem(StringToWideString(pEleWord->Name()));
+			pL->AddItem(StringToWideString(pEleWord->Name()));
 			pEleWord = pEleWord->NextSiblingElement();
 		}
 	}

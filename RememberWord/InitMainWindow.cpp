@@ -13,18 +13,18 @@ tinyxml2::XMLDocument doc;
 void InitMainWindow()
 {
 	int width = 1000, height = 630, cx = GetSystemMetrics(SM_CXSCREEN), cy = GetSystemMetrics(SM_CYSCREEN);
-	pWnd = dynamic_cast<KrWindow*>(KrUIManager::GetpKrUIManager()->AddWindow(L"不要查单词", (cx - width) / 2, (cy - height) / 2, width, height));
+	pWnd = KrUIManager::GetpKrUIManager()->AddWindow(L"不要查单词", (cx - width) / 2, (cy - height) / 2, width, height);
+	pWnd->Hide();
 	pWnd->RegMsg(WM_KEYDOWN, reinterpret_cast<MSGPROC>(Wnd_KeyDown));
 	pEdit = pWnd->AddEdit(L"", 30, 50, 690, 35);
 	pBtn_Query = pWnd->AddButton(L"查询", 750, 50, 100, 35);
 	pBtn_Query->RegMsg(KM_CLICK, reinterpret_cast<MSGPROC>(Btn_Query_Click));
-	pBtn_Delete = pWnd->AddButton(L"删除", 870, 50, 100, 35);
+	pBtn_Delete = pWnd->AddButton(L"批量删除", 870, 50, 100, 35);
 	pBtn_Delete->RegMsg(KM_CLICK, reinterpret_cast<MSGPROC>(Btn_Delete_Click));
 	pLbl = pWnd->AddLabel(L"", 260, 100, 700, 600);
 	pLbl->SetLineAlignment(Gdiplus::StringAlignmentNear);
 	pList = pWnd->AddList(L"WordList", 30, 100, 200, 500);
 	pList->RegMsg(KM_LISTITEMCLICK, reinterpret_cast<MSGPROC>(List_Change));
-
 	char szPath[MAX_PATH];
 	GetModuleFileNameA(NULL, szPath, MAX_PATH);
 	strPath = szPath;
@@ -43,6 +43,7 @@ void InitMainWindow()
 			pEleWord = pEleWord->NextSiblingElement();
 		}
 	}
+	pWnd->Show();
 }
 
 void List_Change(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
@@ -99,9 +100,4 @@ void QueryWord(Word* pW)
 {
 	GetEntry(pW);
 	pLbl->SetName(pW->GetDetail());
-	int height = static_cast<int>(GetTextSize(pW->GetDetail(), pLbl->GetFont(), Gdiplus::Rect(0, 0, pLbl->GetWidth(), pLbl->GetHeight())).Height);
-	if (((height + pLbl->GetY()) < 610))
-		pWnd->SetHeight(610);
-	else
-		pWnd->SetHeight(height + pLbl->GetY() + 50);
 }

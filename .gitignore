@@ -61,3 +61,7 @@ RememberWord/KrUI/Tools/KrTools.cpp
 RememberWord/KrUI/Tools/KrTools.h
 RememberWord/KrUI/KrList.cpp
 RememberWord/KrUI/KrList.h
+RememberWord/KrUI/KrCheckBox.cpp
+RememberWord/KrUI/KrCheckBox.h
+RememberWord/KrUI/KrRadio.cpp
+RememberWord/KrUI/KrRadio.h
