@@ -15,7 +15,7 @@ LRESULT DelItem(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
 void InitEditWindow()
 {
 	int width = 500, height = 650, cx = GetSystemMetrics(SM_CXSCREEN), cy = GetSystemMetrics(SM_CYSCREEN);
-	pWndEdit = KrUIManager::GetpKrUIManager()->AddWindow(L"选中要删除的单词(删除后会重新启动应用以载入更新的文件)", (cx - width) / 2, (cy - height) / 2, width, height);
+	pWndEdit = KrUIManager::GetpKrUIManager()->AddWindow(L"选中要删除的单词", (cx - width) / 2, (cy - height) / 2, width, height);
 	pWordList = pWndEdit->AddList(L"", 30, 70, 440, 500);
 	pWordList->SetMultiSelectable(true);
 	pBtnNsa = pWndEdit->AddButton(L"全不选", 130, 590);
@@ -56,6 +56,7 @@ LRESULT DelItem(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
 		pWordList->RemoveItem(li.m_Index);
 	}
 	xmlDoc.SaveFile(path.c_str());
+	MessageBox(pWndEdit->GetHWND(), L"删除成功，即将重新启动本程序。", L"提示", MB_OK);
 	WinExec(szPath, SW_SHOW);
 	PostQuitMessage(0);
 	return 0;
