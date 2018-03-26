@@ -13,7 +13,7 @@ tinyxml2::XMLDocument doc;
 void InitMainWindow()
 {
 	int width = 1000, height = 630, cx = GetSystemMetrics(SM_CXSCREEN), cy = GetSystemMetrics(SM_CYSCREEN);
-	pWnd = KrUIManager::GetpKrUIManager()->AddWindow(L"不要查单词", (cx - width) / 2, (cy - height) / 2, width, height);
+	pWnd = KrUIManager::GetpKrUIManager()->AddWindow(L"单词查询", (cx - width) / 2, (cy - height) / 2, width, height);
 	pWnd->Hide();
 	pWnd->RegMsg(WM_KEYDOWN, reinterpret_cast<MSGPROC>(Wnd_KeyDown));
 	pEdit = pWnd->AddEdit(L"", 30, 50, 690, 35);

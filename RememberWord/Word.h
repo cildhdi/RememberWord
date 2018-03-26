@@ -21,17 +21,17 @@ public:
 	Word(std::wstring key);
 	Word(tinyxml2::XMLDocument* xmlDoc);
 	std::wstring GetWord();
-	void FromXMLDoc(tinyxml2::XMLDocument* xmlDoc);
-	void FromXMLStr(std::string str);
-	void AddToXmlDoc(tinyxml2::XMLDocument* xmlDoc);
-	std::string GetXml();
+	void FromXMLDoc(tinyxml2::XMLDocument* xmlDoc);//从xml文档中解析出单词
+	void FromXMLStr(std::string str);//从xml字符串中解析出单词
+	void AddToXmlDoc(tinyxml2::XMLDocument* xmlDoc);//将词添加至xml描述文件
+	std::string GetXml();//获取xml描述文件
 	void SetWord(std::wstring strWord);
-	void AddAcceptation(std::wstring pos, std::wstring acception);
+	void AddAcceptation(std::wstring pos, std::wstring acception);//添加含义
 	void ClearAcceptations();
-	void AddSentence(std::wstring orig, std::wstring trans);
+	void AddSentence(std::wstring orig, std::wstring trans);//添加例句
 	void ClearSentences();
-	void Clear();
-	bool IsFound();
+	void Clear();//清除所有内容
+	bool IsFound();//返回是否找到单词
 	std::wstring GetDetail();//返回单词和意义和例句
 };
 

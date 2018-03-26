@@ -10,7 +10,7 @@ char szPath[MAX_PATH];
 tinyxml2::XMLDocument xmlDoc;
 
 LRESULT SelectAll(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
-LRESULT SelectNo(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
+LRESULT SelectNoItem(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
 LRESULT DelItem(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
 void InitEditWindow()
 {
@@ -19,7 +19,7 @@ void InitEditWindow()
 	pWordList = pWndEdit->AddList(L"", 30, 70, 440, 500);
 	pWordList->SetMultiSelectable(true);
 	pBtnNsa = pWndEdit->AddButton(L"全不选", 130, 590);
-	pBtnNsa->RegMsg(KM_CLICK, SelectNo);
+	pBtnNsa->RegMsg(KM_CLICK, SelectNoItem);
 	pBtnSa = pWndEdit->AddButton(L"全选", 250, 590);
 	pBtnSa->RegMsg(KM_CLICK, SelectAll);
 	pBtnDel = pWndEdit->AddButton(L"删除", 370, 590);
@@ -32,7 +32,7 @@ LRESULT SelectAll(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
 	pWordList->SelectAllItems(true);
 	return 0;
 }
-LRESULT SelectNo(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
+LRESULT SelectNoItem(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
 {
 	pWordList->SelectAllItems(false);
 	return 0;
