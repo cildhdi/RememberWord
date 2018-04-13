@@ -1,5 +1,7 @@
 #include "InitEditWindow.h"
 
+
+
 KrWindow* pWndEdit = nullptr;
 KrList* pWordList = nullptr;
 KrButton* pBtnSa = nullptr;
@@ -12,10 +14,17 @@ tinyxml2::XMLDocument xmlDoc;
 LRESULT SelectAll(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
 LRESULT SelectNoItem(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
 LRESULT DelItem(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
+LRESULT EditWndDel(KrMessageHandler* kmh, WPARAM wp, LPARAM lp);
 void InitEditWindow()
 {
+	if (hEditWnd != nullptr)
+	{
+		::SetFocus(hEditWnd);
+		return;
+	}
 	int width = 500, height = 650, cx = GetSystemMetrics(SM_CXSCREEN), cy = GetSystemMetrics(SM_CYSCREEN);
 	pWndEdit = KrUIManager::GetpKrUIManager()->AddWindow(L"选中要删除的单词", (cx - width) / 2, (cy - height) / 2, width, height);
+	hEditWnd = pWndEdit->GetHWND();
 	pWordList = pWndEdit->AddList(L"", 30, 70, 440, 500);
 	pWordList->SetMultiSelectable(true);
 	pBtnNsa = pWndEdit->AddButton(L"全不选", 130, 590);
@@ -24,7 +33,14 @@ void InitEditWindow()
 	pBtnSa->RegMsg(KM_CLICK, SelectAll);
 	pBtnDel = pWndEdit->AddButton(L"删除", 370, 590);
 	pBtnDel->RegMsg(KM_CLICK, DelItem);
+	pWndEdit->RegMsg(KM_WNDDELETE, EditWndDel);
 	LoadXml(pWordList);
+}
+
+LRESULT EditWndDel(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)
+{
+	hEditWnd = nullptr;
+	return 0;
 }
 
 LRESULT SelectAll(KrMessageHandler* kmh, WPARAM wp, LPARAM lp)

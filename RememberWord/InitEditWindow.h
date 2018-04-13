@@ -8,5 +8,7 @@
 #include "TinyXML2/tinyxml2.h"
 using namespace KrUI;
 
+static HWND hEditWnd = nullptr;
+
 void InitEditWindow();
 void LoadXml(KrUI::KrList* pL);
